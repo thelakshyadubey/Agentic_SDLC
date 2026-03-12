@@ -56,13 +56,13 @@ class DualLLM:
 # Heavy models — used for BA, Architect, PM, Dev (complex reasoning)
 heavy_models = [
     ChatGroq(model="llama-3.3-70b-versatile", temperature=0.3, api_key=os.getenv("GROQ_API_KEY")),
-    ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3, google_api_key=os.getenv("GEMINI_API_KEY"))
+    ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3, google_api_key=os.getenv("GEMINI_API_KEY"))
 ]
 
 # Light models — used for QA (simple pass/fail review, saves tokens)
 light_models = [
     ChatGroq(model="llama-3.1-8b-instant", temperature=0.1, api_key=os.getenv("GROQ_API_KEY")),
-    ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1, google_api_key=os.getenv("GEMINI_API_KEY"))
+    ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1, google_api_key=os.getenv("GEMINI_API_KEY"))
 ]
 
 # Expose instantiated DualLLMs

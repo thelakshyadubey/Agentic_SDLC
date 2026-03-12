@@ -48,6 +48,7 @@ STRICT RULES — follow every single one:
 - Delete must show a confirmation step before actually deleting
 - After login, show only logged-in menu: View Tasks, Create Task, Update Task, Delete Task, Reports, Logout
 - Before login, show only: Register, Login
+- CRITICAL: When using st.selectbox for item selection (e.g., selecting a task), ensure you safely extract the ID. Do NOT pass a descriptive string like "Task 1" into an `int()` casting function without parsing it correctly.
 
 Respond with ONLY the raw Python code. No explanation. No markdown fences.
 """

@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\main.py", line 109, in <module>
+    result = app.invoke(initial_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\pregel\main.py", line 3290, in invoke
+    for chunk in self.stream(
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\pregel\main.py", line 2724, in stream
+    for _ in runner.tick(
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\pregel\_runner.py", line 167, in tick
+    run_with_retry(
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\pregel\_retry.py", line 71, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\_internal\_runnable.py", line 656, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\venv\Lib\site-packages\langgraph\_internal\_runnable.py", line 400, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lakshya\Desktop\YASH\Agentic SDLC Try\agents\ba_agent.py", line 7, in generate_sow
+    print("\n\U0001f535 BA Agent: Generating Statement of Work...")
+  File "C:\Users\Lakshya\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f535' in position 2: character maps to <undefined>
+During task with name 'generate_sow' and id '357f0e6f-c998-3b7a-67c3-e8702c623159'

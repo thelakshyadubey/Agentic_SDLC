@@ -7,6 +7,7 @@ from agents.pm_agent import create_wbs
 from agents.dev_agent import dev_agent
 from agents.qa_agent import qa_agent
 import time
+import subprocess
 
 load_dotenv()
 
@@ -39,6 +40,18 @@ def uat_human_approval(state: ProjectState) -> ProjectState:
     print("\n✅ All tasks complete! Review generated_workspace/app.py")
     return {**state, "ready_for_uat": True}
 
+def push_to_github(state: ProjectState) -> ProjectState:
+    if state.get("ready_for_uat"):
+        print("\n🚀 Pushing generated workspace to GitHub...")
+        try:
+            subprocess.run(["git", "add", "."], check=True)
+            subprocess.run(["git", "commit", "-m", "Auto-commit: Pipeline finished"], check=True)
+            subprocess.run(["git", "push", "origin", "main"], check=True)
+            print("✅ Successfully pushed to GitHub!")
+        except subprocess.CalledProcessError as e:
+            print(f"⚠️ Failed to push to GitHub: {e}")
+    return state
+
 def rate_limited_dev(state: ProjectState) -> ProjectState:
     time.sleep(2)  # 2 second pause before each Dev call
     return dev_agent(state)
@@ -56,6 +69,7 @@ workflow.add_node("dev_agent", rate_limited_dev)
 workflow.add_node("qa_agent", rate_limited_qa)
 workflow.add_node("advance_task", advance_task)
 workflow.add_node("uat_human_approval", uat_human_approval)
+workflow.add_node("push_to_github", push_to_github)
 
 workflow.set_entry_point("generate_sow")
 workflow.add_edge("generate_sow", "design_architecture")
@@ -74,7 +88,8 @@ workflow.add_conditional_edges(
     }
 )
 
-workflow.add_edge("uat_human_approval", END)
+workflow.add_edge("uat_human_approval", "push_to_github")
+workflow.add_edge("push_to_github", END)
 
 app = workflow.compile()
 

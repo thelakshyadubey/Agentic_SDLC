@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage
 from state import ProjectState
-from agents import llm_fast  # ← changed from llm
+from agents import llm
 from tools.file_ops import read_file
 import json
 
@@ -31,19 +31,20 @@ Do NOT fail for:
 - Security improvements
 - Performance concerns
 - Theoretical null pointer cases
+- Small string extraction issues
 
 If the code is reasonably functional and will run with `streamlit run app.py`, mark it as PASSED.
 
 Respond ONLY with a valid JSON object:
 {{
     "passed": true or false,
-    "issues": ["only list CRITICAL issues that prevent execution"]
+    "issues": ["list CRITICAL issues, AND explicitly write out the code snippet needed to fix each one"]
 }}
 
 No explanation. No markdown. Just the raw JSON.
 """
 
-    response = llm_fast.invoke([HumanMessage(content=prompt)])
+    response = llm.invoke([HumanMessage(content=prompt)])
 
     try:
         review = json.loads(response.content.strip())
